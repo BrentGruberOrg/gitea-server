@@ -18,7 +18,7 @@ kill_timeout = 5
   GITEA__server__ROOT_URL="https://brentgruberorg-gitea.fly.dev/"
   GITEA__server__REDIRECT_OTHER_PORT="true" # Listen on port 80 and redirect to root url
   GITEA__security__INSTALL_LOCK="true" # Don't show installer
-  # GITEA__service__DISABLE_REGISTRATION="true" # uncomment to disable new users
+  GITEA__service__DISABLE_REGISTRATION="true" # uncomment to disable new users
 
 # persistence
 [[mounts]]
