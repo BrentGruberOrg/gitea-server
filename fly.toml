@@ -22,7 +22,7 @@ kill_timeout = 5
 
 # persistence
 [[mounts]]
-  source = "gitea-data"
+  source = "gitea_data"
   destination = "/data"
 
 # ssh traffic
