@@ -39,4 +39,5 @@ jobs:
             - name: Create Admin User
               run: |
                 password=$(doppler run -- flyctl ssh console --command "su - git -c '/usr/local/bin/gitea admin user create --username=gitea --random-password --email=gitea@brentgruber.com --admin --must-change-password=false'" | sed -n "/generated random password is/ s/.*'\(.*\)'.*/\1/p")
-                doppler secrets set GITEA_ADMIN_PASSWORD=$password
+                export HISTIGNORE='*doppler secrets set*'
+                doppler secrets set GITEA_ADMIN_PASSWORD=$password > /dev/null 2>$1
