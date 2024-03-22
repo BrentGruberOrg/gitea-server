@@ -1,50 +1,52 @@
-# fly.toml app configuration file generated for brentgruberorg-gitea on 2024-03-07T23:39:12-05:00
+# fly.toml app configuration file generated for gitea-brentgruberorg on 2024-03-21T20:04:06-04:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "brentgruberorg-gitea"
-primary_region = "bos"
-
-kill_timeout = 5
+app = 'gitea-brentgruberorg'
+primary_region = 'bos'
+kill_timeout = '5s'
 
 [build]
-  image = "gitea/gitea:latest"
+  image = 'gitea/gitea'
 
 [env]
-  GITEA__database__DB_TYPE="sqlite3"
-  GITEA__database__PATH="/data/gitea/gitea.db"
-  GITEA__server__DOMAIN="brentgruberorg-gitea.fly.dev"
-  GITEA__server__ROOT_URL="https://brentgruberorg-gitea.fly.dev/"
-  GITEA__server__REDIRECT_OTHER_PORT="true" # Listen on port 80 and redirect to root url
-  GITEA__security__INSTALL_LOCK="true" # Don't show installer
-  GITEA__service__DISABLE_REGISTRATION="true" # uncomment to disable new users
+  GITEA__database__DB_TYPE = 'sqlite3'
+  GITEA__database__PATH = '/data/gitea/gitea.db'
+  GITEA__security__INSTALL_LOCK = 'true'
+  GITEA__server__DOMAIN = 'brentgruberorg-gitea.fly.dev'
+  GITEA__server__REDIRECT_OTHER_PORT = 'true'
+  GITEA__server__ROOT_URL = 'https://brentgruberorg-gitea.fly.dev/'
+  GITEA__service__DISABLE_REGISTRATION = 'true'
 
-# persistence
 [[mounts]]
-  source = "gitea_data"
-  destination = "/data"
+  source = 'gitea_data'
+  destination = '/data'
 
-# ssh traffic
 [[services]]
+  protocol = 'tcp'
   internal_port = 22
-  protocol = "tcp"
-  [[services.ports]]
+
+[[services.ports]]
     port = 22
 
-# http redirect
 [[services]]
+  protocol = 'tcp'
   internal_port = 80
-  protocol = "tcp"
 
-  [[services.ports]]
-    handlers =  ["http"]
+[[services.ports]]
     port = 80
+    handlers = ['http']
 
 [[services]]
+  protocol = 'tcp'
   internal_port = 3000
-  protocol = "tcp"
 
-  [[services.ports]]
-    handlers = ["tls", "http"]
+[[services.ports]]
     port = 443
+    handlers = ['tls', 'http']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
