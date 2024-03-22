@@ -34,5 +34,5 @@ jobs:
 
 
             - name: Deploy
-              run: flyctl deploy --remote-only
+              run: doppler run flyctl deploy --remote-only
               
