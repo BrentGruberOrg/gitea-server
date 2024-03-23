@@ -13,7 +13,7 @@ COPY ./docker-entrypoint.d/* ./docker-entrypoint.d/
 
 ENV DOCKER_TMPDIR=/data/docker/tmp
 
-COPY ./kmsg.conf /etc/tmpfiles.d/kmsg.conf
+
 RUN touch /dev/kmsg
 
 ENTRYPOINT ["./entrypoint"]
