@@ -1,4 +1,4 @@
-name: Fly Deploy
+name: Fly Deploy Runner
 on:
     pull_request:
         branches:
@@ -14,7 +14,7 @@ on:
 
 jobs:
     deploy:
-        name: Deploy gitea
+        name: Deploy gitea runner
         runs-on: ubuntu-latest
         concurrency: deploy-group
         steps:
