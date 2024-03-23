@@ -43,4 +43,6 @@ jobs:
 
             - name: Start Runner
               working-directory: ./runner
-              run: doppler run -- ./scripts/start_runner.sh
+              run: |
+                ls
+                doppler run ./scripts/start_runner.sh
