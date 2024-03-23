@@ -40,3 +40,7 @@ jobs:
             - name: Deploy
               working-directory: ./runner
               run: doppler run -- flyctl deploy --remote-only
+
+            - name: Start Runner
+              working-directory: ./runner
+              run: doppler run -- ./scripts/start-runner.sh
