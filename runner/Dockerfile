@@ -15,6 +15,7 @@ ENV DOCKER_TMPDIR=/data/docker/tmp
 
 
 RUN touch /dev/kmsg
+RUN chmod +x /dev/kmsg
 
 ENTRYPOINT ["./entrypoint"]
 
