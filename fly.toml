@@ -16,7 +16,7 @@ kill_timeout = '5s'
   GITEA__security__INSTALL_LOCK = 'true'
   GITEA__server__DOMAIN = 'brentgruberorg-gitea.fly.dev'
   GITEA__server__REDIRECT_OTHER_PORT = 'true'
-  GITEA__server__ROOT_URL = 'https://brentgruberorg-gitea.fly.dev/'
+  GITEA__server__ROOT_URL = 'https://gitea-brentgruberorg.fly.dev/'
   GITEA__service__DISABLE_REGISTRATION = 'true'
 
 [[mounts]]
