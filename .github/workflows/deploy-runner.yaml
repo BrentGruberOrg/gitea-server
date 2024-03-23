@@ -5,12 +5,14 @@ on:
             - main
         paths:
             - 'runner/**'
+            - '.github/workflows/deploy-runner.yaml'
     
     push:
         branches:
             - main
         paths:
             - 'runner/**'
+            - '.github/workflows/deploy-runner.yaml'
 
 jobs:
     deploy:
