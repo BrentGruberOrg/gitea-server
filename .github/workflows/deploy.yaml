@@ -39,4 +39,7 @@ jobs:
               # Create an initial admin user if one does not already exist
             - name: Create Admin User
               run: doppler run ./scripts/create_admin_user.sh
-                
+
+              # Generate gitea runner token
+            - name: Generate Runner Token
+              run: doppler run ./scripts/generate_runner_token.sh
