@@ -1,0 +1,49 @@
+name: Fly Deploy
+on:
+    pull_request:
+        branches:
+            - main
+        paths-ignore:
+            - 'runner/**'
+    
+    push:
+        branches:
+            - main
+        paths-ignore:
+            - 'runner/**'
+
+jobs:
+    deploy:
+        name: Deploy gitea
+        runs-on: ubuntu-latest
+        concurrency: deploy-group
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            
+            - name: Install Doppler CLI
+              run: |
+                sudo apt-get update && sudo apt-get install -y apt-transport-https ca-certificates curl gnupg
+                curl -sLf --retry 3 --tlsv1.2 --proto "=https" 'https://packages.doppler.com/public/cli/gpg.DE2A7741A397C129.key' | sudo gpg --dearmor -o /usr/share/keyrings/doppler-archive-keyring.gpg
+                echo "deb [signed-by=/usr/share/keyrings/doppler-archive-keyring.gpg] https://packages.doppler.com/public/cli/deb/debian any-version main" | sudo tee /etc/apt/sources.list.d/doppler-cli.list
+                sudo apt-get update && sudo apt-get install doppler
+            
+            - name: Setup Doppler
+              run: |
+                mkdir temp_home
+                doppler setup --no-interactive -t ${{ secrets.DOPPLER_ACCESS_TOKEN }}
+
+            - name: Setup Flyctl
+              uses: superfly/flyctl-actions/setup-flyctl@master
+
+
+            - name: Deploy
+              run: doppler run -- flyctl deploy --remote-only
+              
+              # Create an initial admin user if one does not already exist
+            - name: Create Admin User
+              run: doppler run ./scripts/create_admin_user.sh
+
+              # Generate gitea runner token
+            - name: Generate Runner Token
+              run: doppler run ./scripts/generate_runner_token.sh
