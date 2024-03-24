@@ -3,14 +3,16 @@ on:
     pull_request:
         branches:
             - main
-        paths-ignore:
-            - 'runner/**'
+        paths:
+            - 'server/**'
+            - '.github/workflows/deploy-server.yaml'
     
     push:
         branches:
             - main
         paths-ignore:
-            - 'runner/**'
+            - 'server/**'
+            - '.github/workflows/deploy-server.yaml'
 
 jobs:
     deploy:
@@ -29,21 +31,26 @@ jobs:
                 sudo apt-get update && sudo apt-get install doppler
             
             - name: Setup Doppler
+              working-directory: ./server
               run: |
                 mkdir temp_home
                 doppler setup --no-interactive -t ${{ secrets.DOPPLER_ACCESS_TOKEN }}
 
             - name: Setup Flyctl
+              
               uses: superfly/flyctl-actions/setup-flyctl@master
 
 
             - name: Deploy
+              working-directory: ./server
               run: doppler run -- flyctl deploy --remote-only
               
               # Create an initial admin user if one does not already exist
             - name: Create Admin User
+              working-directory: ./server
               run: doppler run ./scripts/create_admin_user.sh
 
               # Generate gitea runner token
             - name: Generate Runner Token
+              working-directory: ./server
               run: doppler run ./scripts/generate_runner_token.sh
