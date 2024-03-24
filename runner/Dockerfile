@@ -14,8 +14,7 @@ COPY ./docker-entrypoint.d/* ./docker-entrypoint.d/
 ENV DOCKER_TMPDIR=/data/docker/tmp
 
 
-RUN touch /dev/kmsg
-RUN chmod +x /dev/kmsg
+RUN touch /dev/kmsg && chmod 666 /dev/kmsg
 
 ENTRYPOINT ["./entrypoint"]
 
