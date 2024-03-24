@@ -10,7 +10,7 @@ on:
     push:
         branches:
             - main
-        paths-ignore:
+        paths:
             - 'server/**'
             - '.github/workflows/deploy-server.yaml'
 
